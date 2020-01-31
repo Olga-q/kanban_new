@@ -16,18 +16,18 @@
 
                 <div class="panel-body">
                     <div class="col-md-4">
-                        <ul class='list' id='colomn1'>
-                        </ul>   
+                        <div class='list' id='colomn1'>
+                        </div>   
                     </div>
 
                     <div class="col-md-4">
-                        <ul class='list' id='colomn2'>
-                        </ul>   
+                        <div class='list' id='colomn2'>
+                        </div>   
                     </div>
 
                     <div class="col-md-4">
-                        <ul class='list' id='colomn3'>
-                        </ul>   
+                        <div class='list' id='colomn3'>
+                        </div>   
                     </div>
                 </div>
             </div>

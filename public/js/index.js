@@ -1,13 +1,17 @@
-function addTask(value, colomn, id='') {
+function addTask(task, notes, colomn, id='') {
     var colomn = document.getElementById(colomn);
-    var li = document.createElement('LI');
+    var li = document.createElement('div');
     li.setAttribute("id", id);
-    li.innerHTML = value;
     colomn.appendChild(li);
+    var task = document.createElement('div');
+    
+    task.innerHTML = task;
+    li.appendChild(task);
+    // li.appendChild(notes);
+    // colomn.appendChild(li);
 }
 
 function showTasks(tasks) {
-
     tasks.forEach(function(task) {
         if (task.status == 1) {
             var colomn = 'colomn1';
@@ -18,7 +22,8 @@ function showTasks(tasks) {
         }
         var value = task.task;
         var id = 'task-' + task.id;
-        addTask(value, colomn, id);
+        var notes = task.notes;
+        addTask(value, notes, colomn, id);
     });
 }
 
@@ -44,7 +49,7 @@ $(function() {
             data: msg,
             success: function(data) {
                 var value = document.getElementById('new-task').value;
-                addTask(value, 'colomn1', 'task-'+data.id);
+                addTask(value, '', 'colomn1', 'task-'+data.id);
                 event.target.reset();
             }
         });
