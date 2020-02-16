@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -20,7 +21,9 @@
         ]); ?>
     </script>
 
-    <script src="/js/jquery-3.4.1.min.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+
+    
 </head>
 <body>
     <div id="app">
@@ -83,8 +86,11 @@
         @yield('content')
     </div>
 
+
     <!-- Scripts -->
+
+    <script src="/js/app.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="/js/index.js"></script>
-    <!-- <script src="/js/app.js"></script> -->
 </body>
 </html>

@@ -1,14 +1,26 @@
-function addTask(task, notes, colomn, id='') {
+function addTask(text, notes, colomn, id, userAdd, userDo) {
     var colomn = document.getElementById(colomn);
     var li = document.createElement('div');
-    li.setAttribute("id", id);
-    colomn.appendChild(li);
+
     var task = document.createElement('div');
-    
-    task.innerHTML = task;
+    var notesDiv = document.createElement('div');
+    var userAddDiv = document.createElement('div');
+    var userDoDiv = document.createElement('div');
+    var del = document.createElement('BUTTON');
+    li.setAttribute("id", id);
+    li.setAttribute('class', 'task');
+    del.setAttribute('class', 'del');
+    del.innerHTML = 'x';
+    task.innerHTML = text;
+    notesDiv.innerHTML = notes;
+    userAddDiv.innerHTML = userAdd;
+    userDoDiv.innerHTML = userDo;
     li.appendChild(task);
-    // li.appendChild(notes);
-    // colomn.appendChild(li);
+    li.appendChild(notesDiv);
+    li.appendChild(userAddDiv);
+    li.appendChild(userDoDiv);
+    li.appendChild(del);
+    colomn.appendChild(li);
 }
 
 function showTasks(tasks) {
@@ -20,10 +32,33 @@ function showTasks(tasks) {
         } else {
             var colomn = 'colomn3';
         }
-        var value = task.task;
         var id = 'task-' + task.id;
-        var notes = task.notes;
-        addTask(value, notes, colomn, id);
+        addTask(task.task, task.notes, colomn, id, task.userAdd, task.userDo);
+    });
+}
+
+function addOption(value, id) {
+    var element = document.getElementById("select-user");
+    var option = document.createElement('option');
+    option.setAttribute("value", id);
+    option.setAttribute("id", "option-"+id);
+    option.innerHTML = value;
+    element.appendChild(option);
+}
+
+function listUsers(users) {
+    users.forEach(function(user) {
+        addOption(user.name, user.id);      
+    });
+ 
+}
+
+function loadUser(){
+    $.ajax({
+        url: 'user/show',
+        success: function(data) {
+            listUsers(JSON.parse(data))
+        }
     });
 }
 
@@ -34,6 +69,15 @@ function loadState() {
             showTasks(JSON.parse(data))
         }
     }); 
+}
+
+function makeDraggable() {
+    $(this).draggable({
+        // axis:'x',
+        // connectToSortable:'ul#sortlist',
+        revert:'invalid',
+        containment:'.panel-body',
+    });
 }
 
 $(function() {
@@ -48,12 +92,36 @@ $(function() {
             url: 'task/add',
             data: msg,
             success: function(data) {
+                data = JSON.parse(data);
                 var value = document.getElementById('new-task').value;
-                addTask(value, '', 'colomn1', 'task-'+data.id);
+                addTask(value, data.note, 'colomn1', 'task-'+data.id, data.userAdd, data.userDo);
                 event.target.reset();
             }
         });
     });
 
+    $(".list").on('click','.del', function(event) {
+        event.preventDefault();
+
+        var id = $(this).closest('div').attr('id');
+        var idDb = id.substring(5);
+        $.ajax({
+            type: 'POST',
+            url: 'task/del',
+            data: { id: idDb},
+            success: function(data) {
+                document.getElementById(id).remove();
+            }
+        });
+    });
+
+    
+    
+  
     loadState();
+
+    loadUser();
+
+    $(".list").on("DOMNodeInserted", ".task", makeDraggable);
+    $("#colomn2").droppable();
 });

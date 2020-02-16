@@ -9,6 +9,9 @@
                     <form method="POST" class="js-form">
                         <fieldset>
                             <input name="task" id="new-task" size="50" placeholder="Новая задача"  maxlength="120" required/>
+                            <input name="note" id="new-note" size="25" placeholder="Описание"/>
+                            <select id="select-user" name="user"> 
+                            </select>
                             <input type="submit" name="button" value="+" />
                         </fieldset>
                     </form>
