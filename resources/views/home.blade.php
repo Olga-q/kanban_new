@@ -19,18 +19,18 @@
 
                 <div class="panel-body">
                     <div class="col-md-4">
-                        <div class='list' id='colomn1'>
-                        </div>   
+                        <ul class='list' id='colomn1'>
+                        </ul>   
                     </div>
 
                     <div class="col-md-4">
-                        <div class='list' id='colomn2'>
-                        </div>   
+                        <ul class='list' id='colomn2'>
+                        </ul>   
                     </div>
 
                     <div class="col-md-4">
-                        <div class='list' id='colomn3'>
-                        </div>   
+                        <ul class='list' id='colomn3'>
+                        </ul>   
                     </div>
                 </div>
             </div>

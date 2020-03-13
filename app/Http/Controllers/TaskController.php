@@ -58,4 +58,25 @@ class TaskController extends Controller
         $task->save();
         return json_encode([]);
     }
+
+    private function updatePriority($priority)
+    {
+        $elements = [];
+        foreach ($priority as $i => $value) {
+            $elements[] = [
+                'priority' => $i + 1,
+                'id' => $value
+            ];
+        }
+        $sql = "UPDATE " . $this->table . " SET priority=:priority WHERE id=:id";
+        return $this->dbArr($sql, $elements);
+    }
+
+    public function changePriority(Request $request)
+    {
+        $request->colomn1;
+        
+    }
+
+    
 }

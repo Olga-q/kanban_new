@@ -2,3 +2,12 @@
     border: 2px solid gray;
     margin: 10px 2px;
 }
+li.task {
+    list-style-type: none; /* Убираем маркеры */
+   }
+ul.list {
+    margin-left: 0; /* Отступ слева в браузере IE и Opera */
+    padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
+    min-height: 100px;
+    margin: 0;
+   }

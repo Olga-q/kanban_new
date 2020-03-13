@@ -1,6 +1,6 @@
 function addTask(text, notes, colomn, id, userAdd, userDo) {
     var colomn = document.getElementById(colomn);
-    var li = document.createElement('div');
+    var li = document.createElement('li');
 
     var task = document.createElement('div');
     var notesDiv = document.createElement('div');
@@ -71,12 +71,11 @@ function loadState() {
     }); 
 }
 
-function makeDraggable() {
-    $(this).draggable({
-        // axis:'x',
-        // connectToSortable:'ul#sortlist',
-        revert:'invalid',
-        containment:'.panel-body',
+function sort(data) {
+    $.ajax({
+        type: 'POST',
+        url: 'task/changePriority',
+        data: data
     });
 }
 
@@ -103,7 +102,7 @@ $(function() {
     $(".list").on('click','.del', function(event) {
         event.preventDefault();
 
-        var id = $(this).closest('div').attr('id');
+        var id = $(this).closest('li').attr('id');
         var idDb = id.substring(5);
         $.ajax({
             type: 'POST',
@@ -111,17 +110,23 @@ $(function() {
             data: { id: idDb},
             success: function(data) {
                 document.getElementById(id).remove();
+
             }
         });
     });
 
-    
-    
-  
+    $("#colomn1,#colomn2,#colomn3").sortable({
+        connectWith:'#colomn1,#colomn2, #colomn3',
+        update:function(event,ui) {
+            var data = [colomn1 => $("#colomn1").sortable('serialize'),
+                        colomn2 => $("#colomn2").sortable('serialize'),
+                        colomn3 => $("#colomn3").sortable('serialise'), 
+            ];
+            // sort(data);
+        }
+    });
+
     loadState();
 
     loadUser();
-
-    $(".list").on("DOMNodeInserted", ".task", makeDraggable);
-    $("#colomn2").droppable();
 });
