@@ -117,13 +117,19 @@ $(function() {
 
     $("#colomn1,#colomn2,#colomn3").sortable({
         connectWith:'#colomn1,#colomn2, #colomn3',
+        containment:'.panel-body',
         update:function(event,ui) {
             var data = [colomn1 => $("#colomn1").sortable('serialize'),
                         colomn2 => $("#colomn2").sortable('serialize'),
                         colomn3 => $("#colomn3").sortable('serialise'), 
             ];
             // sort(data);
-        }
+        },
+        receive:function(event,ui) {
+            alert(ui.item[0].id);
+            alert()
+            // updateStatus(data);
+        },
     });
 
     loadState();

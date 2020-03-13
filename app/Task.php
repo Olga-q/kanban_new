@@ -20,3 +20,4 @@ class Task extends Model
         return static::where('status', $status)->get();
     }
 }
+ 

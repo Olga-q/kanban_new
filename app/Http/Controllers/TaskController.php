@@ -20,7 +20,8 @@ class TaskController extends Controller
                         'notes' => $taskDB->notes,
                         'userAdd' => User::where('id', $taskDB->user_add_id)->get()[0]->name,
                         'userDo' => User::where('id', $taskDB->user_do_id)->get()[0]->name,
-                        'status' => $taskDB->status];
+                        'status' => $taskDB->status,
+                        'priority' => $taskDB->priority];
             $i++;
         }
         return json_encode($tasks);
@@ -28,12 +29,13 @@ class TaskController extends Controller
 
     public function add(Request $request)
     {
+        $lastPriority = Task::where('status', 1)->max('priority') ?? 0;
         $task = new Task;
         $task->task = $request->task;
         $task->notes = $request->note ?? '';
         $task->user_add_id = Auth::id();
         $task->user_do_id = $request->user ?? Auth::id();
-        // $task->status = 2;
+        $task->priority = $lastPriority + 1;
         
         $task->save();
         
@@ -74,6 +76,7 @@ class TaskController extends Controller
 
     public function changePriority(Request $request)
     {
+
         $request->colomn1;
         
     }

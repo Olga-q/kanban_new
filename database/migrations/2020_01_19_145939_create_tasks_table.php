@@ -22,6 +22,7 @@ class CreateTasksTable extends Migration
             $table->string('task');
             $table->text('notes');
             $table->integer('status')->default(1);
+            $table->integer('priority');
             $table->timestamps();
         });
     }
